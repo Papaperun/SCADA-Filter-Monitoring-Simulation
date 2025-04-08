@@ -1,0 +1,13 @@
+# Chemical order Check
+
+Chem_Tank_level = float(input(" What is The tank level at now in feet ?"))
+
+Daily_use = float(input("What is the daily use in feet?"))
+
+Days_left = Chem_Tank_level / Daily_use
+
+if Days_left > 5:
+    print(f"Your ok on Chemicals")
+
+else:
+    print(f"You have {Days_left} order now")
