@@ -1,0 +1,33 @@
+import os
+import pandas as pd
+
+def read_scada_data():
+    # loads the SCADA file from a relative path (e.g., inside the project folder)
+    file_path = os.path.join("data", "scada_data.csv")
+    
+    # load CSV
+    df = pd.read_csv(file_path)
+
+    # print columns for debugging
+    print("Columns in CSV:", df.columns)
+    
+    # clean column names
+    df.columns = df.columns.str.strip()
+
+    # validate expected columns
+    required_columns = ['Filter one', 'filter Two', 'Filter Three', 'Filter Four', 'Filter Five', 'Timestamp']
+    for col in required_columns:
+        if col not in df.columns:
+            raise ValueError(f"Missing required column: {col}")
+
+    # find violations
+    violations = df[
+        (df['Filter one'] > 0.30) | 
+        (df['filter Two'] > 0.30) | 
+        (df['Filter Three'] > 0.30) | 
+        (df['Filter Four'] > 0.30) | 
+        (df['Filter Five'] > 0.30)
+    ]
+    print(violations["Timestamp"])
+
+read_scada_data()
