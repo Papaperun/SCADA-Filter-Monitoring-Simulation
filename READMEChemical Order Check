@@ -1,0 +1,64 @@
+Chemical Order Check
+Overview
+This Python script helps track the remaining chemical levels in your tank and provides a reminder to reorder chemicals based on the tank's current level. It is useful for ensuring that you don't run out of chemicals before your next delivery.
+
+How It Works
+The script calculates how many days of chemical usage are left based on the current tank level and daily chemical usage. If the remaining days are greater than 5, it will notify you that you’re good on chemicals. If the remaining days are less than or equal to 5, it will prompt you to reorder chemicals.
+
+Assumptions
+The script assumes that you use chemicals at a constant rate each day.
+
+The threshold for reordering chemicals is set to 5 days, which is the delivery time standard for this system. This can be adjusted if your delivery timeline is different.
+
+Input Parameters
+Tank Level: The current chemical tank level in feet.
+
+Daily Use: The daily usage of chemicals in feet.
+
+Script Behavior
+The script calculates how many days of chemicals are left (Days_left = Chem_Tank_level / Daily_use).
+
+If there are more than 5 days of chemicals remaining, it will print a message saying you're okay on chemicals.
+
+If there are 5 days or fewer remaining, it will print how many days are left and suggest placing an order.
+
+Usage
+To run this script:
+
+Ensure you have Python installed on your system.
+
+Run the script using your terminal or an IDE.
+
+The script will prompt you to input:
+
+What is the tank level now in feet?
+
+What is the daily usage in feet?
+
+Based on the input, the script will print a message indicating whether you need to order more chemicals.
+
+Example:
+
+pgsql
+Copy
+Edit
+What is The tank level at now in feet? 15
+What is the daily use in feet? 2
+You have 7.5 order now
+Customization
+If you have a different delivery time (for example, 7 days instead of 5), you can adjust the threshold in the script.
+
+Change the line:
+
+python
+Copy
+Edit
+if Days_left > 5:
+To:
+
+python
+Copy
+Edit
+if Days_left > [your desired threshold]:
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
