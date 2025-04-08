@@ -1,0 +1,13 @@
+# SCADA Filter Violation Checker (Supporting Script)
+
+This Python script supports a larger case study project that investigates turbidity violations across multiple filters in a water treatment system. The main analysis was performed using SQL, and this script serves as a verification tool to cross-check findings using the raw SCADA CSV data.
+
+## 🔍 Project Purpose
+
+The goal of the case study was to:
+- Analyze 3 years of SCADA and bench data
+- Identify turbidity violations where filter readings exceeded 0.30 NTU
+- Investigate potential causes (e.g., calibration errors or human error)
+- Provide operational insight based on 22 years of real-world water treatment experience
+
+This script focuses on flagging timestamps where any of the filters exceeded the threshold of **0.30 NTU**, which could suggest potential violations.
