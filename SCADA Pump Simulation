@@ -1,0 +1,74 @@
+# This is to simulate a Pump in auto with floats or probes to determine the tank level 
+
+import random
+import matplotlib.pyplot as plt
+from colorama import Fore, Style, init
+
+# Initialize colorama for colored terminal output
+init(autoreset=True)
+
+# Tank set points for low or high level
+setpoint_on = 25
+setpoint_off = 45
+
+# Timer check to see if the pump has just shut off as a safety to protect from rapid restarts
+timer_check = None
+
+# Data for visualization
+time_data = []  # Simulated time
+tank_level_data = []  # Tank levels
+pump_status_data = []  # Pump statuses (on/off)
+
+# Start the simulation at a random tank level
+tank_level = random.uniform(20, 50)  # Random initial tank level
+pump_status = "off"  # Initial pump status
+
+def simulate_pump(simulated_time):
+    global tank_level, pump_status, timer_check
+
+    # Simulate gradual tank level changes
+    if pump_status == "on":
+        tank_level += random.uniform(0.5, 1.0)  # Gradually increase tank level
+    else:
+        tank_level -= random.uniform(0.5, 1.0)  # Gradually decrease tank level
+
+    # Ensure tank level stays within realistic bounds
+    tank_level = max(0, min(50, tank_level))
+
+    # Simulate pump logic
+    if tank_level <= setpoint_on and pump_status == "off":
+        pump_status = "on"
+        print(Fore.GREEN + f"Time {simulated_time}s: Tank level is low ({tank_level:.2f}). Turning ON the pump!")
+    elif tank_level >= setpoint_off and pump_status == "on":
+        pump_status = "off"
+        print(Fore.RED + f"Time {simulated_time}s: Tank level is high ({tank_level:.2f}). Turning OFF the pump!")
+        timer_check = simulated_time  # Update the timer when the pump turns off
+    else:
+        print(Fore.YELLOW + f"Time {simulated_time}s: Tank level is {tank_level:.2f}. Pump remains {pump_status.upper()}.")
+
+    # Store data for visualization
+    time_data.append(simulated_time)
+    tank_level_data.append(tank_level)
+    pump_status_data.append(pump_status)
+
+# Simulate tank levels and pump operation
+for simulated_time in range(0, 200, 10):  # Simulate every 10 seconds for 200 seconds
+    simulate_pump(simulated_time)
+
+# Plot the tank levels over time
+plt.figure(figsize=(10, 6))
+plt.plot(time_data, tank_level_data, label="Tank Level", color="blue", linewidth=2)
+
+# Highlight setpoints
+plt.axhline(setpoint_on, color="green", linestyle="--", label="Setpoint ON")
+plt.axhline(setpoint_off, color="red", linestyle="--", label="Setpoint OFF")
+
+# Add labels and legend
+plt.title("Tank Level Simulation with Pump Behavior", fontsize=16)
+plt.xlabel("Time (seconds)", fontsize=12)
+plt.ylabel("Tank Level", fontsize=12)
+plt.legend()
+plt.grid()
+
+# Show the plot
+plt.show()
